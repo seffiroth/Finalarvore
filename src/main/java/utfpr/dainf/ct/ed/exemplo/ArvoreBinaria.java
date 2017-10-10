@@ -3,16 +3,7 @@ package utfpr.dainf.ct.ed.exemplo;
 import java.util.LinkedList;
 import java.util.Stack;
 
-/**
- * UTFPR - Universidade TecnolÃ³gica Federal do ParanÃ¡
- * DAINF - Departamento AcadÃªmico de InformÃ¡tica
- * 
- * Exemplo de implementaÃ§Ã£o de Ã¡rvore binÃ¡ria.
- * @author Wilson Horstmeyer Bogado <wilson@utfpr.edu.br>
- * @param <E> O tipo do valor armazenado nos nÃ³s na Ã¡rvore
- */
 public class ArvoreBinaria<E> {
-    
     private boolean inicio = true;
     private boolean visitado = false;
     private E dado;
@@ -21,7 +12,6 @@ public class ArvoreBinaria<E> {
     private Stack<ArvoreBinaria<E>> pilha;
     private LinkedList<ArvoreBinaria<E>> fila;
     private ArvoreBinaria<E> ultimoVisitado;
-
 
     public static void main(String[] args)
     {
@@ -37,10 +27,8 @@ public class ArvoreBinaria<E> {
         //a.proximoPreOrdem();
     }
 
-
     public ArvoreBinaria() {
     }
-
 
     public ArvoreBinaria(E dado) {
         this.dado = dado;
@@ -52,14 +40,14 @@ public class ArvoreBinaria<E> {
         esquerda.esquerda = e;
         return esquerda;
     }
-    
+
     public ArvoreBinaria<E> insereDireita(E dado) {
         ArvoreBinaria<E> d = direita;
         direita = new ArvoreBinaria<>(dado);
         direita.direita = d;
         return direita;
     }
-    
+
     protected void visita(ArvoreBinaria<E> no) {
         System.out.print(" " + no.dado);
     }
@@ -71,17 +59,18 @@ public class ArvoreBinaria<E> {
             ArvoreBinaria.this.visitaEmOrdem(raiz.direita);
         }
     }
-    
 
     public void visitaEmOrdem() {
         visitaEmOrdem(this);
     }
-
-    public void visitaPreOrdem(){
+    
+    public void visitaPreOrdem()
+    {
         visitaPreOrdem(this);
     }
 
-    public void visitaPreOrdem(ArvoreBinaria<E> a){
+    public void visitaPreOrdem(ArvoreBinaria<E> a)
+    {
         visita(a);
         if (a != null)
         {
@@ -93,17 +82,20 @@ public class ArvoreBinaria<E> {
         }
     }
 
-    public ArvoreBinaria<E> proximoPreOrdem(){
+    public ArvoreBinaria<E> proximoPreOrdem()
+    {
         ArvoreBinaria<E> resultado;
         resultado = null;
      
-        if (inicio){
+        if (inicio)
+        {
             reinicia();
             pilha.push(this);
             inicio = false;
         }
         
-        if (!pilha.isEmpty()){
+        if (!pilha.isEmpty())
+        {
             resultado = pilha.pop();
             
             if (resultado.direita != null)
@@ -112,7 +104,8 @@ public class ArvoreBinaria<E> {
                 pilha.push(resultado.esquerda);
         }
 
-        if (resultado == {
+        if (resultado == null)
+        {
             inicio = true;
             tiraVisitado(this);
         }
@@ -130,19 +123,23 @@ public class ArvoreBinaria<E> {
             visitaPosOrdem(no.direita);
         visita(no);
     }
-    
-    public ArvoreBinaria<E> proximoPosOrdem(){
+
+    public ArvoreBinaria<E> proximoPosOrdem()
+    {
         ArvoreBinaria<E> resultado, pai = null;
         resultado = this;
 
-        while (resultado != null){
-            if (resultado.visitado == false){
+        while (resultado != null)
+        {
+            if (resultado.visitado == false)
+            {
                 pai = resultado;
                 resultado = resultado.esquerda;
                 if (resultado == null && pai != null)
                     resultado = pai.direita;
             }
-            else{
+            else
+            {
                 if (pai != null)
                    resultado = pai.direita;   
                 if (resultado != null && resultado.visitado == true)
@@ -152,7 +149,8 @@ public class ArvoreBinaria<E> {
 
         resultado = pai;
         
-        if (resultado == null){
+        if (resultado == null)
+        {
             inicio = true;
             tiraVisitado(this);
         }
@@ -164,7 +162,8 @@ public class ArvoreBinaria<E> {
     }
 
 
-    private void tiraVisitado(ArvoreBinaria<E> a){
+    private void tiraVisitado(ArvoreBinaria<E> a)
+    {
         if (a != null)
         {
             a.visitado = false;
@@ -206,19 +205,20 @@ public class ArvoreBinaria<E> {
     } 
 
 
+
     private void inicializaPilha() {
         if (pilha == null) {
             pilha = new Stack<>();
         }
     }
-
+    
     public void reinicia() {
         inicializaPilha();
         pilha.clear();
         ultimoVisitado = this;
         inicio = true;
     }
-
+    
     public ArvoreBinaria<E> proximoEmOrdem() {
         ArvoreBinaria<E> resultado = null;
         if (inicio) {
@@ -240,7 +240,7 @@ public class ArvoreBinaria<E> {
 
         return resultado;
     }
-
+    
     public E getDado() {
         return dado;
     }
